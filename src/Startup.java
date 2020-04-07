@@ -1,8 +1,6 @@
 public class Startup {
 
-
-    public static char[] arrEvenOdd (int[] arr) {
-
+    public static char[] arrEvenOdd(int[] arr){
         char[] results = new char[arr.length];
         if (arr.length == 0) {
             return results;
@@ -12,47 +10,46 @@ public class Startup {
                 results[i] = 'E';
             }
             else {
-                    results[i] = 'O';
-                }
+                results[i] = 'O';
             }
-            return results;
         }
+        return results;
+    }
 
     public static boolean isSubstring(String mainStr, String subStr) {
-            if (mainStr.length() < subStr.length()){
-                return false;
-            }
+        if (mainStr.length() < subStr.length()) {
+            return false;
+        }
 
-            if(mainStr.length() == subStr.length() && subStr != mainStr.substring(0, (subStr.length() - 1))){
-                return false;
-            }
-            if(subStr.equals(mainStr.substring(0, subStr.length()))){
-                return true;
-                }
-            else{
-                System.out.println(mainStr);
+        if (mainStr.length() == subStr.length() && subStr != mainStr.substring(0, (subStr.length() - 1))) {
+            return false;
+        }
+        if (subStr.equals(mainStr.substring(0, subStr.length()))) {
+            return true;
+        } else {
+            System.out.println(mainStr);
 
-                return(isSubstring(mainStr.substring(1), subStr));
+            return (isSubstring(mainStr.substring(1), subStr));
 
-                }
+        }
     }
 
     public static int[][] prune(int[][] sets, int num) {
 //        Returns the sets that contain num
         int[][] newSets = new int[sets.length][];
         int index = 0;
-        for (int[] set : sets){
-            if (set == null){
+        for (int[] set : sets) {
+            if (set == null) {
                 continue;
             }
-            for (int n : set){
-                if (n == num){
+            for (int n : set) {
+                if (n == num) {
                     newSets[index] = set;
                     index++;
                     break;
                 }
             }
-    }
+        }
         // Return the new elements
         int[][] slice = new int[index][];
         for (int i = 0; i < slice.length; i++) {
@@ -63,19 +60,19 @@ public class Startup {
     }
 
     public static boolean numpadSRC(int num) {
-            int[] row1 = {0};
-            int[] row2 = {1,2,3};
-            int[] row3 = {4,5,6};
-            int[] row4 = {7,8,9};
-            int[] col1 = {0,1,4,7};
-            int[] col2 = {0,2,5,8};
-            int[] col3 = {0,3,6,9};
-            int[][] sets = {row1, row2, row3, row4, col1, col2, col3};
-            while (num != 0){
-                sets = prune(sets, num % 10);
-                num = (num / 10);
-            }
-            return sets.length > 0;
+        int[] row1 = {0};
+        int[] row2 = {1, 2, 3};
+        int[] row3 = {4, 5, 6};
+        int[] row4 = {7, 8, 9};
+        int[] col1 = {0, 1, 4, 7};
+        int[] col2 = {0, 2, 5, 8};
+        int[] col3 = {0, 3, 6, 9};
+        int[][] sets = {row1, row2, row3, row4, col1, col2, col3};
+        while (num != 0) {
+            sets = prune(sets, num % 10);
+            num = (num / 10);
+        }
+        return sets.length > 0;
 
 //            String sNum = Integer.toString(num);
 //            int rowNum;
@@ -89,11 +86,12 @@ public class Startup {
 //            }
 
     }
+
     public static int max(int[] arr) {
         int max = 0;
-        for (int i:arr){
+        for (int i : arr) {
 
-            if(i > max){
+            if (i > max) {
                 max = i;
             }
         }
@@ -101,10 +99,10 @@ public class Startup {
     }
 
     public static int[] createSet(int[] arr) {
-        boolean[] sortHelper = new boolean[max(arr) +1];
+        boolean[] sortHelper = new boolean[max(arr) + 1];
         int unique = 0;
-        for(int i: arr){
-            if(sortHelper[i] == false) {
+        for (int i : arr) {
+            if (sortHelper[i] == false) {
                 unique++;
                 sortHelper[i] = true;
             }
@@ -113,8 +111,8 @@ public class Startup {
 
         int[] set = new int[unique];
         int index = 0;
-        for(int i = 0; i <= max(arr); i++){
-            if (sortHelper[i]){
+        for (int i = 0; i <= max(arr); i++) {
+            if (sortHelper[i]) {
                 set[index] = i;
                 index++;
             }
@@ -122,38 +120,45 @@ public class Startup {
         return set;
     }
 
-    public static boolean subsetHelper(int[] set1, int[] set2, int i, int f){
-        if(i > set1.length ){
+    public static boolean subsetHelper(int[] set1, int[] set2, int i, int f) {
+        if (i > set1.length) {
             return true;
-        }
-        else if(f == set2.length && set1[i] != set2[f]){
+        } else if (f == set2.length && set1[i] != set2[f]) {
             return false;
+        } else if (set1[i] == set2[f]) {
+            return subsetHelper(set1, set2, i + 1, f + 1);
+        } else {
+            return subsetHelper(set1, set2, i, f + 1);
         }
-       else if(set1[i] == set2[f]){
-           return subsetHelper(set1, set2, i+1,  f+1);
-       }
-       else{
-           return subsetHelper(set1, set2, i,  f+1);
-       }
     }
 
-    public static boolean subsetChecker(int[] set1, int[] set2){
-        return subsetHelper(set1,set2, 0,0);
+    public static boolean subsetChecker(int[] set1, int[] set2) {
+        return subsetHelper(set1, set2, 0, 0);
     }
 
-    public static int recursiveBinarySearch (int[] arr, int left, int right, int target){
-        int check =  left + (right - left)/2;
-        if (left - right == 1 && arr[check] != target){
+    public static int recursiveBinarySearch(int[] arr, int left, int right, int target) {
+        int check = left + (right - left) / 2;
+        if (right - left == 1 && arr[check] != target) {
             return -1;
-        }
-        if( arr[check] == target) {
+        } else if (arr[check] == target) {
             return check;
-        }
-        else if(target > arr[check]){
+        } else if (target > arr[check]) {
             return recursiveBinarySearch(arr, check, right, target);
-        }
-        else{
+        } else {
             return recursiveBinarySearch(arr, left, check, target);
+        }
+    }
+    public static String translate(char c){
+
+    }
+    public static String encryptString(String s){
+        String afterCap = "ZYXWVUTSRQPONMLKJIHGFEDCBA";
+        String originalCap = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        String afterLow = "abcdefghijklmnopqrstuvwxyz";
+        String originalLow = "zyxwvutsrqponmlkjihgfedcba";
+        String result = "";
+        for(int i = 0; i < s.length();i++){
+            result += s.substring(i,s.length());
         }
     }
 
@@ -222,7 +227,8 @@ public class Startup {
 
         int recursionT = 0;
         int recursionT2 = 5;
-        recursiveBinarySearch(t0,recursionT,recursionT2,3);
+        int[] testerRec = new int[] {-5, 1, 2, 3, 8, 9, 10, 12};
+        System.out.println(recursiveBinarySearch(testerRec,recursionT,recursionT2,4));
 
     }
     }
