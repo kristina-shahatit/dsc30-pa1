@@ -148,19 +148,73 @@ public class Startup {
             return recursiveBinarySearch(arr, left, check, target);
         }
     }
-    public static String translate(char c){
-
-    }
-    public static String encryptString(String s){
+    public static char encryptHelper(char c){
         String afterCap = "ZYXWVUTSRQPONMLKJIHGFEDCBA";
         String originalCap = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        String afterLow = "abcdefghijklmnopqrstuvwxyz";
-        String originalLow = "zyxwvutsrqponmlkjihgfedcba";
-        String result = "";
-        for(int i = 0; i < s.length();i++){
-            result += s.substring(i,s.length());
+        String originalLow = "abcdefghijklmnopqrstuvwxyz";
+        String afterLow = "zyxwvutsrqponmlkjihgfedcba";
+        if( afterCap.indexOf(c) == -1 && afterLow.indexOf(c) != -1 ){
+            return afterLow.charAt(originalLow.indexOf(c));
         }
+        if( afterLow.indexOf(c) == -1 && afterCap.indexOf(c) != -1 ){
+            return afterCap.charAt(originalCap.indexOf(c));
+        }
+        else{
+            return c;
+        }
+
     }
+
+
+    public static String encryptString(String s){
+        String result = "";
+        for(int i = s.length() - 1; i >= 0;i--){
+            result += encryptHelper(s.charAt(i));
+        }
+        return result;
+    }
+    public static String repeat(String s, int width){
+        String str = "";
+        if(width == 0){
+            return "";
+        }
+        for(int i = 0; i < width; i++){
+            str += s;
+
+
+        }
+        return str;
+    }
+    public static String drawPattern(int width){
+        String result = "";
+        String star = "*";
+        if ( width % 2 == 0){
+            for(int i = 1; i <= width/2; i++){
+
+                result += repeat(star,i) + repeat(" ",width/2 -i) + repeat(" ",width/2 -i) + repeat(star, i) + "\n";
+            }
+            for(int i = width; i >= width/2; i--){
+
+                result += repeat(star,i) + repeat(" ",width/2 -i) + repeat(" ",width/2 -i) + repeat(star, i) + "\n";
+            }
+
+        }
+        if ( width % 2 != 0){
+            width++;
+            for(int i = 1; i <= width/2; i++){
+
+                result += repeat(star,i) + repeat(" ",width/2 -i) + repeat(" ",width/2 -i) + repeat(star, i) + "\n";
+            }
+            for(int i = width/2 - 1; i >= 0; i--){
+
+                result += repeat(star,i) + repeat(" ",width/2 -i) + repeat(" ",width/2 -i) + repeat(star, i) + "\n";
+            }
+
+        }
+        return result;
+
+    }
+
 
 
 
@@ -229,6 +283,8 @@ public class Startup {
         int recursionT2 = 5;
         int[] testerRec = new int[] {-5, 1, 2, 3, 8, 9, 10, 12};
         System.out.println(recursiveBinarySearch(testerRec,recursionT,recursionT2,4));
+        System.out.println(encryptString("abcdefg, hijklmn, OPQRST, UVWXYZ!"));
+        System.out.print(drawPattern(11));
 
     }
     }
