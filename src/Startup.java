@@ -265,6 +265,9 @@ public class Startup {
     public static String drawPattern(int width) {
         String result = "";
         String star = "*";
+        if( width == 0 ){
+            return "";
+        }
         if (width % EVEN_CHECK == 0) {
             for (int i = 1; i <= width / HALF; i++) {
 
@@ -290,6 +293,9 @@ public class Startup {
         }
         return result;
 
+    }
+    public static int[] runtimeAnswers() {
+        return new int[] { 1, 2, 3, 4, 5, 1, 2, 3, 4, 5 };
     }
 
 
