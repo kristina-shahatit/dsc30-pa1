@@ -1,15 +1,17 @@
 public class Startup {
+   private static int EVEN_CHECK = 2;
+   private static int PRUNE_HELPER = 10;
+   private static int HALF = 2;
 
-    public static char[] arrEvenOdd(int[] arr){
+    public static char[] arrEvenOdd(int[] arr) {
         char[] results = new char[arr.length];
         if (arr.length == 0) {
             return results;
         }
         for (int i = 0; i < arr.length; i++) {
-            if (arr[i] % 2 == 0) {
+            if (arr[i] % EVEN_CHECK == 0) {
                 results[i] = 'E';
-            }
-            else {
+            } else {
                 results[i] = 'O';
             }
         }
@@ -69,8 +71,8 @@ public class Startup {
         int[] col3 = {0, 3, 6, 9};
         int[][] sets = {row1, row2, row3, row4, col1, col2, col3};
         while (num != 0) {
-            sets = prune(sets, num % 10);
-            num = (num / 10);
+            sets = prune(sets, num % PRUNE_HELPER);
+            num = (num / PRUNE_HELPER);
         }
         return sets.length > 0;
 
@@ -78,9 +80,9 @@ public class Startup {
 //            int rowNum;
 //            int lastNum = num%10;
 //
-//            if (lastNum == 1 || lastNum == 2 || lastNum == 3){
+//            if (lastNum == 1 || lastNum == 2 || lastNum == 3) {
 //                rowNum = 2;
-//                if(lastNum%10 ==1 || lastNum == 2 || lastNum ==3){
+//                if(lastNum%10 ==1 || lastNum == 2 || lastNum ==3) {
 //
 //                }
 //            }
@@ -102,7 +104,7 @@ public class Startup {
         boolean[] sortHelper = new boolean[max(arr) + 1];
         int unique = 0;
         for (int i : arr) {
-            if (sortHelper[i] == false) {
+            if (!sortHelper[i]) {
                 unique++;
                 sortHelper[i] = true;
             }
@@ -137,7 +139,7 @@ public class Startup {
     }
 
     public static int recursiveBinarySearch(int[] arr, int left, int right, int target) {
-        int check = left + (right - left) / 2;
+        int check = left + (right - left) / HALF;
         if (right - left == 1 && arr[check] != target) {
             return -1;
         } else if (arr[check] == target) {
@@ -148,66 +150,66 @@ public class Startup {
             return recursiveBinarySearch(arr, left, check, target);
         }
     }
-    public static char encryptHelper(char c){
+    public static char encryptHelper(char c) {
         String afterCap = "ZYXWVUTSRQPONMLKJIHGFEDCBA";
         String originalCap = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         String originalLow = "abcdefghijklmnopqrstuvwxyz";
         String afterLow = "zyxwvutsrqponmlkjihgfedcba";
-        if( afterCap.indexOf(c) == -1 && afterLow.indexOf(c) != -1 ){
+        if (afterCap.indexOf(c) == -1 && afterLow.indexOf(c) != -1) {
             return afterLow.charAt(originalLow.indexOf(c));
         }
-        if( afterLow.indexOf(c) == -1 && afterCap.indexOf(c) != -1 ){
+        if (afterLow.indexOf(c) == -1 && afterCap.indexOf(c) != -1) {
             return afterCap.charAt(originalCap.indexOf(c));
         }
-        else{
+        else {
             return c;
         }
 
     }
 
 
-    public static String encryptString(String s){
+    public static String encryptString(String s) {
         String result = "";
-        for(int i = s.length() - 1; i >= 0;i--){
+        for (int i = s.length() - 1; i >= 0; i--) {
             result += encryptHelper(s.charAt(i));
         }
         return result;
     }
-    public static String repeat(String s, int width){
+    public static String repeat(String s, int width) {
         String str = "";
-        if(width == 0){
+        if (width == 0) {
             return "";
         }
-        for(int i = 0; i < width; i++){
+        for (int i = 0; i < width; i++) {
             str += s;
 
 
         }
         return str;
     }
-    public static String drawPattern(int width){
+    public static String drawPattern(int width) {
         String result = "";
         String star = "*";
-        if ( width % 2 == 0){
-            for(int i = 1; i <= width/2; i++){
+        if (width % EVEN_CHECK == 0) {
+            for (int i = 1; i <= width / HALF; i++) {
 
-                result += repeat(star,i) + repeat(" ",width/2 -i) + repeat(" ",width/2 -i) + repeat(star, i) + "\n";
+                result += repeat(star, i) + repeat(" ", width / HALF - i) + repeat(" ", width / HALF - i) + repeat(star, i) + "\n";
             }
-            for(int i = width; i >= width/2; i--){
+            for (int i = width; i >= width / HALF; i--) {
 
-                result += repeat(star,i) + repeat(" ",width/2 -i) + repeat(" ",width/2 -i) + repeat(star, i) + "\n";
+                result += repeat(star, i) + repeat(" ", width / HALF - i) + repeat(" ", width / HALF - i) + repeat(star, i) + "\n";
             }
 
         }
-        if ( width % 2 != 0){
+        if (width % EVEN_CHECK != 0) {
             width++;
-            for(int i = 1; i <= width/2; i++){
+            for (int i = 1; i <= width / HALF; i++) {
 
-                result += repeat(star,i) + repeat(" ",width/2 -i) + repeat(" ",width/2 -i) + repeat(star, i) + "\n";
+                result += repeat(star, i) + repeat(" ", width / HALF - i) + repeat(" ", width / HALF - i) + repeat(star, i) + "\n";
             }
-            for(int i = width/2 - 1; i >= 0; i--){
+            for (int i = width / HALF - 1; i >= 0; i--) {
 
-                result += repeat(star,i) + repeat(" ",width/2 -i) + repeat(" ",width/2 -i) + repeat(star, i) + "\n";
+                result += repeat(star, i) + repeat(" ", width / HALF - i) + repeat(" ", width / HALF - i) + repeat(star, i) + "\n";
             }
 
         }
@@ -220,11 +222,11 @@ public class Startup {
 
 
 
-    public static void print_arr(int[] arr){
+    public static void printArr(int[] arr) {
         System.out.print("{");
-        for (int i = 0; i <  arr.length; i++){
+        for (int i = 0; i <  arr.length; i++) {
             System.out.print(arr[i]);
-            if (i != arr.length-1) {
+            if (i != arr.length - 1) {
                 System.out.print(" , ");
             }
         }
@@ -238,7 +240,7 @@ public class Startup {
         String str = "MARINA";
         String mstr = "M";
         System.out.println(isSubstring(mstr, str));
-        System.out.println(55768%10);
+        System.out.println(55768 % 10);
 //        numPad
         int[] s1 = new int[]{0};
         int[] s2 = new int[]{1, 2, 3};
@@ -249,7 +251,7 @@ public class Startup {
         int[] s7 = new int[]{0, 3, 6, 9};
         int[][] sets = new int[][]{s1, s2, s3, s4, s5, s6, s7};
         int[] testCases = new int[]{1047, 2058, 999633, 258, 987, 123, 443, 332, 0, 9, 9087};
-        for (int t: testCases){
+        for (int t: testCases) {
             System.out.println(t);
             System.out.println(numpadSRC(t));
         }
@@ -261,10 +263,10 @@ public class Startup {
         int[] t5 = new int[]{2, 5, 4, 3, 7, 3, 9, 12, 4, 5, 9, 6, 2, 7, 4, 3, 6, 6};
 
         int[][] testCases2 = new int[][]{t0, t1, t2, t3, t4, t5};
-        for (int[] t : testCases2){
+        for (int[] t : testCases2) {
             System.out.println("Test");
-            print_arr(t);
-            print_arr(createSet(t));
+            printArr(t);
+            printArr(createSet(t));
         }
         int[] sub0 = new int[]{};
         int[] sub1 = new int[]{1, 2, 3};
@@ -282,7 +284,7 @@ public class Startup {
         int recursionT = 0;
         int recursionT2 = 5;
         int[] testerRec = new int[] {-5, 1, 2, 3, 8, 9, 10, 12};
-        System.out.println(recursiveBinarySearch(testerRec,recursionT,recursionT2,4));
+        System.out.println(recursiveBinarySearch(testerRec, recursionT, recursionT2, 4));
         System.out.println(encryptString("abcdefg, hijklmn, OPQRST, UVWXYZ!"));
         System.out.print(drawPattern(11));
 
