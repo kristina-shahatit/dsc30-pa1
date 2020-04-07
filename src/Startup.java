@@ -295,7 +295,7 @@ public class Startup {
 
     }
     public static int[] runtimeAnswers() {
-        return new int[] { 2, 2, 3, 4, 3, 2, 3, 3, 3, 1 };
+        return new int[] { 1, 5, 3, 2, 1, 2, 3, 1, 2, 1 };
     }
 
 
