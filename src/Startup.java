@@ -1,13 +1,31 @@
+/*
+ * NAME: Kristina Shahatit
+ * PID: A15666663
+ */
+/**
+ * PA1
+ *
+ * @author Kristina Shahatit
+ * @since ${04/06/2020}
+ */
 public class Startup {
    private static int EVEN_CHECK = 2;
    private static int PRUNE_HELPER = 10;
    private static int HALF = 2;
+    /**
+     * finds if each integer in an int array is even or odd
+     *
+     * @param arr integer array
+     * @return character list describing each value as odd or even
+     */
 
     public static char[] arrEvenOdd(int[] arr) {
         char[] results = new char[arr.length];
+        //if array is empty return the array
         if (arr.length == 0) {
             return results;
         }
+        //loop through array to check if each integer is odd or even
         for (int i = 0; i < arr.length; i++) {
             if (arr[i] % EVEN_CHECK == 0) {
                 results[i] = 'E';
@@ -17,25 +35,37 @@ public class Startup {
         }
         return results;
     }
-
+    /**
+     * solves if suStr is a substring of mainStr
+     *
+     * @param mainStr String that we will be comparing to
+     * @param subStr String that is being checked
+     * @return boolean telling whether mainStr contains subStr
+     */
     public static boolean isSubstring(String mainStr, String subStr) {
+        // false if substring is longer than main string
         if (mainStr.length() < subStr.length()) {
             return false;
         }
-
+// base case if we reach the end of mainStr and have not found subStr
         if (mainStr.length() == subStr.length() && subStr != mainStr.substring(0, (subStr.length() - 1))) {
             return false;
         }
+        //when you find subStr return true
         if (subStr.equals(mainStr.substring(0, subStr.length()))) {
             return true;
         } else {
-            System.out.println(mainStr);
-
             return (isSubstring(mainStr.substring(1), subStr));
 
         }
     }
-
+    /**
+     * reduces the numbers you have to look through to solve numpad
+     *
+     * @param sets integer array containing integer arrays
+     * @param num integer
+     * @return boolean telling whether mainStr contains subStr
+     */
     public static int[][] prune(int[][] sets, int num) {
 //        Returns the sets that contain num
         int[][] newSets = new int[sets.length][];
@@ -76,30 +106,29 @@ public class Startup {
         }
         return sets.length > 0;
 
-//            String sNum = Integer.toString(num);
-//            int rowNum;
-//            int lastNum = num%10;
-//
-//            if (lastNum == 1 || lastNum == 2 || lastNum == 3) {
-//                rowNum = 2;
-//                if(lastNum%10 ==1 || lastNum == 2 || lastNum ==3) {
-//
-//                }
-//            }
-
     }
-
+    /**
+     * finds the maximum value in an int array
+     *
+     * @param arr int array
+     * @return int maximum value in the array
+     */
     public static int max(int[] arr) {
         int max = 0;
         for (int i : arr) {
-
+// if current value is bigger set max equal to it
             if (i > max) {
                 max = i;
             }
         }
         return max;
     }
-
+    /**
+     * creates a set with no duplicates and in ascending order
+     *
+     * @param arr int array
+     * @return int array with no duplicates and in ascending order
+     */
     public static int[] createSet(int[] arr) {
         boolean[] sortHelper = new boolean[max(arr) + 1];
         int unique = 0;
@@ -121,7 +150,15 @@ public class Startup {
         }
         return set;
     }
-
+    /**
+     * Finds if set1 is a subset of set 2
+     *
+     * @param set1 int array
+     * @param set2 int array
+     * @param i int used as index counter
+     * @param f int used as index counter
+     * @return boolean of whether or not set1 is a subset of set 2
+     */
     public static boolean subsetHelper(int[] set1, int[] set2, int i, int f) {
         if (i > set1.length) {
             return true;
@@ -133,11 +170,25 @@ public class Startup {
             return subsetHelper(set1, set2, i, f + 1);
         }
     }
-
+    /**
+     * returns if set1 is a subset of set 2
+     *
+     * @param set1 int array
+     * @param set2 int array
+     * @return boolean of whether or not set1 is a subset of set 2
+     */
     public static boolean subsetChecker(int[] set1, int[] set2) {
         return subsetHelper(set1, set2, 0, 0);
     }
-
+    /**
+     * Finds position of target integer
+     *
+     * @param arr int array
+     * @param left int giving lower index
+     * @param right int giving upper index range
+     * @param target int value being searched for
+     * @return int giving position of target or -1 if target not found
+     */
     public static int recursiveBinarySearch(int[] arr, int left, int right, int target) {
         int check = left + (right - left) / HALF;
         if (right - left == 1 && arr[check] != target) {
@@ -150,6 +201,12 @@ public class Startup {
             return recursiveBinarySearch(arr, left, check, target);
         }
     }
+    /**
+     * encrypts one character
+     *
+     * @param c char
+     * @return encrypted char
+     */
     public static char encryptHelper(char c) {
         String afterCap = "ZYXWVUTSRQPONMLKJIHGFEDCBA";
         String originalCap = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -167,7 +224,12 @@ public class Startup {
 
     }
 
-
+    /**
+     * encrypts String
+     *
+     * @param s String to be encrypted
+     * @return encrypted String
+     */
     public static String encryptString(String s) {
         String result = "";
         for (int i = s.length() - 1; i >= 0; i--) {
@@ -175,6 +237,13 @@ public class Startup {
         }
         return result;
     }
+    /**
+     * repeats a string
+     *
+     * @param s String
+     * @param width int determines how many times to repeat
+     * @return repeated String
+     */
     public static String repeat(String s, int width) {
         String str = "";
         if (width == 0) {
@@ -187,6 +256,12 @@ public class Startup {
         }
         return str;
     }
+    /**
+     * creates a string with the given pattern
+     *
+     * @param width int determines how wide the middle row will be
+     * @return string with the pattern
+     */
     public static String drawPattern(int width) {
         String result = "";
         String star = "*";
@@ -287,6 +362,5 @@ public class Startup {
         System.out.println(recursiveBinarySearch(testerRec, recursionT, recursionT2, 4));
         System.out.println(encryptString("abcdefg, hijklmn, OPQRST, UVWXYZ!"));
         System.out.print(drawPattern(11));
-
     }
     }
